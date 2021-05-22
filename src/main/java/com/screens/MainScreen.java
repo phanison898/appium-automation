@@ -3,9 +3,9 @@ package com.screens;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import com.base.Base;
+import com.util.TestUtil;
 
-public class MainScreen extends Base {
+public class MainScreen extends TestUtil {
 	
 	final String commonNumberId = "com.android.calculator2:id/digit_";
 	final String commonOperatorId = "com.android.calculator2:id/";

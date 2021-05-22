@@ -2,23 +2,27 @@ package com.basic;
 
 import org.testng.annotations.Test;
 
-import com.base.Base;
 import com.screens.MainScreen;
+import com.util.TestUtil;
 
-public class BasicTest extends Base{
-	
+public class BasicTest extends TestUtil {
+
 	MainScreen mainScreen;
-	
+
 	@Test(priority = 1)
 	public void addition() {
 		mainScreen = new MainScreen();
 		mainScreen.number(1).click();
+		log("Clicked number-1");
 		mainScreen.operation("+").click();
+		log("Clicked +");
 		mainScreen.number(2).click();
+		log("Clicked number-2");
 		mainScreen.enter().click();
+		log("Clicked enter");
 		mainScreen.getResult();
 	}
-	
+
 	@Test(priority = 2)
 	public void subtraction() {
 		mainScreen = new MainScreen();
@@ -28,7 +32,7 @@ public class BasicTest extends Base{
 		mainScreen.enter().click();
 		mainScreen.getResult();
 	}
-	
+
 	@Test(priority = 3)
 	public void multiplication() {
 		mainScreen = new MainScreen();
@@ -38,7 +42,7 @@ public class BasicTest extends Base{
 		mainScreen.enter().click();
 		mainScreen.getResult();
 	}
-	
+
 	@Test(priority = 4)
 	public void division() {
 		mainScreen = new MainScreen();
