@@ -19,7 +19,8 @@ public class Base {
 
 	public static AndroidDriver<WebElement> driver = null;
 	private Properties testConfig = null;
-	private final String testConfigFilePath = System.getProperty("user.dir") + "/src/main/resources/test-config.properties";
+	private final String testConfigFilePath = System.getProperty("user.dir")
+			+ "/src/main/resources/test-config.properties";
 
 	public Base() {
 		testConfig = new Properties();
@@ -45,7 +46,7 @@ public class Base {
 
 	@AfterMethod
 	public void tear() {
-//		driver.quit();
+		driver.quit();
 	}
 
 	private void launchDevice() {
@@ -67,7 +68,7 @@ public class Base {
 
 		driver = new AndroidDriver<WebElement>(url, cap);
 	}
-	
+
 	private String getTestConfigValue(String key) {
 		return testConfig.getProperty(key);
 	}

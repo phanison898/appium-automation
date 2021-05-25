@@ -13,13 +13,14 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
 public class Report {
-	
+
 	private ExtentReports extent = null;
 	private ExtentSparkReporter spark = null;
 	private Properties reportConfig = null;
-	private final String reportConfigFilePath = System.getProperty("user.dir")+"/src/main/resources/report-config.properties";
-	private final String reportPath = System.getProperty("user.dir")+"/target/index.html";
-	
+	private final String reportConfigFilePath = System.getProperty("user.dir")
+			+ "/src/main/resources/report-config.properties";
+	private final String reportPath = System.getProperty("user.dir") + "/target/index.html";
+
 	public Report() {
 		reportConfig = new Properties();
 		FileInputStream fis = null;
@@ -40,9 +41,9 @@ public class Report {
 			}
 		}
 	}
-	
+
 	public ExtentReports generateReport() {
-		if(extent==null) {
+		if (extent == null) {
 			extent = new ExtentReports();
 			spark = new ExtentSparkReporter(reportPath);
 			reportConfig();
@@ -50,11 +51,11 @@ public class Report {
 		}
 		return extent;
 	}
-	
+
 	public void closeReport() {
 		extent.flush();
 	}
-	
+
 	private void reportConfig() {
 		InetAddress ip = null;
 		try {
@@ -62,9 +63,10 @@ public class Report {
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
-		
-		String authorEmail = String.format("<a href=mailto:%s target=_blank>%<s</a>", getReportConfigValue("author-email"));
-		
+
+		String authorEmail = String.format("<a href=mailto:%s target=_blank>%<s</a>",
+				getReportConfigValue("author-email"));
+
 		extent.setSystemInfo("App Name", getReportConfigValue("app-name"));
 		extent.setSystemInfo("Host Name", ip.getHostName());
 		extent.setSystemInfo("Host Address", ip.getHostAddress());
@@ -72,18 +74,17 @@ public class Report {
 		extent.setSystemInfo("Host Java -v", System.getProperty("java.version"));
 		extent.setSystemInfo("Author Name", getReportConfigValue("author-name"));
 		extent.setSystemInfo("Author Email", authorEmail);
-		
-		if(getReportConfigValue("report-theme").equalsIgnoreCase("DARK")) {
+
+		if (getReportConfigValue("report-theme").equalsIgnoreCase("DARK")) {
 			spark.config().setTheme(Theme.DARK);
-		}else {
+		} else {
 			spark.config().setTheme(Theme.STANDARD);
 		}
-		
+
 		spark.config().setDocumentTitle(getReportConfigValue("report-name"));
 		spark.config().setReportName(getReportConfigValue("report-name"));
 		spark.config().setTimelineEnabled(true);
 	}
-	
 
 	private String getReportConfigValue(String key) {
 		return reportConfig.getProperty(key);

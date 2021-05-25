@@ -15,12 +15,12 @@ public class BasicTest extends TestUtil {
 		mainScreen.number(1).click();
 		log("Clicked number-1");
 		mainScreen.operation("+").click();
-		log("Clicked +");
+		log("Clicked + button");
 		mainScreen.number(2).click();
 		log("Clicked number-2");
 		mainScreen.enter().click();
-		log("Clicked enter");
-		mainScreen.getResult();
+		log("Clicked enter button");
+		Log(mainScreen.getResult());
 	}
 
 	@Test(priority = 2)

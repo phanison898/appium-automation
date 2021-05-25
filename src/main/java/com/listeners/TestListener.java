@@ -9,46 +9,49 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.report.Report;
 import com.report.Test;
+
 public class TestListener implements ITestListener {
-	
-	public ThreadLocal<ExtentTest> test = new ThreadLocal<ExtentTest>();
-	ExtentReports extent = null;
-	String category;
-	String testcase;
-	
+
+	private ExtentReports extent = null;
+	public ExtentTest test = null;
+	private String category;
+	private String testcase;
+
+	public void onStart(ITestContext context) {
+		Report report = new Report();
+		extent = report.generateReport();
+	}
+
 	public void onFinish(ITestContext context) {
 		extent.flush();
 	}
 
-	public void onStart(ITestContext context) {
-		extent = new Report().generateReport();
-	}
-	
-	public void onTestFailure(ITestResult result) {
-		System.out.println("The test-case [ "+result.getMethod().getMethodName()+" ] --> Failed");
-		test.get().log(Status.FAIL, "Test case failed");
-	}
-
-	public void onTestSkipped(ITestResult result) {
-		System.out.println("The test-case [ "+result.getMethod().getMethodName()+" ] --> Skipped");
-		test.get().log(Status.SKIP, "Test case skipped");
-	}
-
 	public void onTestStart(ITestResult result) {
-		System.out.println("The test-case [ "+result.getMethod().getMethodName()+" ] --> Started");
-		
+		System.out.println("The test-case [ " + result.getMethod().getMethodName() + " ] --> Started");
+
 		category = result.getInstance().getClass().getSimpleName();
 		testcase = result.getMethod().getMethodName();
-		
+
 		Test testManager = new Test(extent);
-		
-		test.set(testManager.startTest(testcase));
-		test.get().assignCategory(category);
-		test.get().log(Status.INFO, "Test case started");
+
+		test = testManager.startTest(testcase);
+		test.assignCategory(category);
+		test.log(Status.INFO, "Test case started");
 	}
 
 	public void onTestSuccess(ITestResult result) {
-		System.out.println("The test-case [ "+result.getMethod().getMethodName()+" ] --> Passed");
-		test.get().log(Status.PASS, "Test case passed");
+		System.out.println("The test-case [ " + result.getMethod().getMethodName() + " ] --> Passed");
+		test.log(Status.PASS, "Test case passed");
 	}
+
+	public void onTestFailure(ITestResult result) {
+		System.out.println("The test-case [ " + result.getMethod().getMethodName() + " ] --> Failed");
+		test.log(Status.FAIL, "Test case failed");
+	}
+
+	public void onTestSkipped(ITestResult result) {
+		System.out.println("The test-case [ " + result.getMethod().getMethodName() + " ] --> Skipped");
+		test.log(Status.SKIP, "Test case skipped");
+	}
+
 }

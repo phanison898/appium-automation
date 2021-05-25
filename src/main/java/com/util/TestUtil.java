@@ -10,11 +10,18 @@ import org.openqa.selenium.TakesScreenshot;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.markuputils.Markup;
 import com.base.Base;
 import com.listeners.TestListener;
 
 public class TestUtil extends Base {
+
+	public static ExtentTest test = null;
+
+	public TestUtil() {
+		super();
+		TestListener testListener = new TestListener();
+		test = testListener.test;
+	}
 
 	private static String captureScreenshot() {
 		TakesScreenshot ts = (TakesScreenshot) driver;
@@ -30,11 +37,12 @@ public class TestUtil extends Base {
 		return imagePath;
 	}
 
-	public static void log(String message) {
-		ExtentTest test = new TestListener().test.get();
-		test.log(Status.PASS, message);
+	public static void Log(String message) {
+		test.log(Status.INFO, message);
+	}
 
+	public static void log(String message) {
 		String path = captureScreenshot();
-		test.log(Status.INFO, (Markup) MediaEntityBuilder.createScreenCaptureFromPath(path));
+		test.log(Status.INFO, message, MediaEntityBuilder.createScreenCaptureFromPath(path).build());
 	}
 }
