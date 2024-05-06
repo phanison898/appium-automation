@@ -1,0 +1,23 @@
+{
+	"app": {
+		"screenshots": true,
+		"highlight": false,
+		"headless": false,
+		"timeouts": {
+			"page-load-wait-time": 60,
+			"implicit-wait-time": 5,
+			"explicit-wait-time": 20,
+			"script-load-wait-time": 60
+		}
+	},
+	"report": {
+		"name": "Automation test report",
+		"title": "Extent report",
+		"theme": "dark"
+	},
+	"author": {
+		"name": "Phani Kumar",
+		"github-username": "Phanison898",
+		"email": "phanison898@gmail.com"
+	}
+}
