@@ -27,3 +27,6 @@ nbdist/
 test-output/
 
 /x-output
+
+# secrets
+.env
