@@ -1,5 +1,5 @@
 # Maven specific
-target/
+/target
 !.mvn/wrapper/maven-wrapper.jar
 
 # IDEs
@@ -15,16 +15,8 @@ target/
 .project
 .settings/
 
-# NetBeans specific
-nbproject/
-build/
-nbbuild/
-dist/
-nbdist/
-.nb-gradle/
-
 # test-results
-test-output/
+/test-output
 
 /x-output
 
