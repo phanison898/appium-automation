@@ -28,6 +28,7 @@ public class BaseTest {
 	@Parameters({ "platform" })
 	@BeforeMethod
 	public void setup(@Optional("android") String platform) {
+
 		Config.setPlatformName(platform);
 
 		DriverManager driverManager = null;

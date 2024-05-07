@@ -6,7 +6,7 @@
 		<listener class-name="com.listeners.TestListener" />
 	</listeners>
 
-	<parameter name="env" value="cloud" />
+	<parameter name="env" value="local" />
 	
 	<test name="My Demo App E2E Testing">
 

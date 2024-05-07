@@ -1,5 +1,7 @@
 package com.reports;
 
+import java.io.File;
+
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
@@ -41,12 +43,9 @@ public class ExtentManager {
 	}
 
 	private static void setSystemInfo() {
-		extent.setSystemInfo(null, null);
-		extent.setSystemInfo(null, null);
-		extent.setSystemInfo(null, null);
-		extent.setSystemInfo(null, null);
-		extent.setSystemInfo(null, null);
-		extent.setSystemInfo(null, null);
+		extent.setSystemInfo("Platform", Config.getPlatformName());
+		extent.setSystemInfo("Environment", Config.getEnv());
+		extent.setSystemInfo("App Name", new File(Paths.APP_PATH).getName());
 	}
 
 	private static void configureSparkReporter() {

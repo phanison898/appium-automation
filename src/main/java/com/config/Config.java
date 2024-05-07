@@ -23,7 +23,14 @@ public class Config {
 	}
 
 	public static String getEnv() {
-		return env;
+
+		String value = System.getProperty("environment");
+
+		if (value == null) {
+			value = env;
+		}
+
+		return value;
 	}
 
 	public static void setEnv(String env) {
@@ -50,9 +57,9 @@ public class Config {
 
 		String url = null;
 
-		if (env.equals("local")) {
-			url = getJsonObject().get("app").getAsJsonObject().get("url").getAsString();
-		} else if (env.equals("cloud")) {
+		if (Config.getEnv().equals("local")) {
+			url = getJsonObject().get("appium-server").getAsJsonObject().get("url").getAsString();
+		} else if (Config.getEnv().equals("cloud")) {
 			url = getSecret("SAUCE_URL");
 		}
 
