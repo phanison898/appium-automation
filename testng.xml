@@ -6,12 +6,14 @@
 		<listener class-name="com.listeners.TestListener" />
 	</listeners>
 
-	<test name="Android Smoke Testing">
+	<parameter name="env" value="cloud" />
+	
+	<test name="My Demo App E2E Testing">
 
 		<parameter name="platform" value="android" />
 
 		<classes>
-			<class name="com.smoke.HomeScreenTest" />
+			<class name="com.smoke.PlaceOrderTest" />
 		</classes>
 
 	</test>

@@ -22,4 +22,6 @@ public class Paths {
 
 	public static final String SCREENSHOTS_REL_DIR = "screenshots";
 
+	public static final String APP_PATH = HOME + "/src/main/resources/Android-MyDemoAppRN.1.3.0.build-244.apk";
+
 }

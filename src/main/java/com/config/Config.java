@@ -9,15 +9,25 @@ public class Config {
 
 	private static JsonObject jo = null;
 
+	private static String env = null;
+
 	private static String platformName = null;
 
-	private static Dotenv env = null;
+	private static Dotenv dotenv = null;
 
 	private static String getSecret(String key) {
-		if (env == null) {
-			env = Dotenv.load();
+		if (dotenv == null) {
+			dotenv = Dotenv.load();
 		}
-		return env.get(key);
+		return dotenv.get(key);
+	}
+
+	public static String getEnv() {
+		return env;
+	}
+
+	public static void setEnv(String env) {
+		Config.env = env;
 	}
 
 	public static String getPlatformName() {
@@ -37,7 +47,16 @@ public class Config {
 	}
 
 	public static String getAppiumServerUrl() {
-		return getSecret("SAUCE_URL");
+
+		String url = null;
+
+		if (env.equals("local")) {
+			url = getJsonObject().get("app").getAsJsonObject().get("url").getAsString();
+		} else if (env.equals("cloud")) {
+			url = getSecret("SAUCE_URL");
+		}
+
+		return url;
 	}
 
 	public static boolean isScreenshots() {

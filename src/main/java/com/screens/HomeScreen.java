@@ -10,51 +10,23 @@ public class HomeScreen extends InteractionsUtil {
 
 	private WebDriver driver = null;
 
+	private By product = By
+			.xpath("(//android.view.ViewGroup[@content-desc='store item'])[1]/android.view.ViewGroup[1]");
+
+	private By title = By
+			.xpath("//android.widget.TextView[@content-desc='store item text' and @text='Sauce Labs Backpack']");
+
 	public HomeScreen(WebDriver driver) {
 		super(driver);
+		this.driver = driver;
 	}
 
-	final String commonNumberId = "com.android.calculator2:id/digit_";
-	final String commonOperatorId = "com.android.calculator2:id/";
+	public ProductScreen tapOnProduct() {
 
-	public WebElement number(int number) {
-		WebElement element = driver.findElement(By.id(commonNumberId + Integer.toString(number)));
-		return element;
-	}
+		logger.info("Opened My Demo App", true);
 
-	public WebElement operation(String operator) {
-		WebElement element = null;
-		switch (operator) {
-		case "+":
-			operator = "op_add";
-			break;
-		case "-":
-			operator = "op_sub";
-			break;
-		case "x":
-			operator = "op_mul";
-			break;
-		case "/":
-			operator = "op_div";
-			break;
-		default:
-			operator = "op_add";
-			break;
-		}
-
-		element = driver.findElement(By.id(commonOperatorId + operator));
-
-		return element;
-	}
-
-	public WebElement enter() {
-		WebElement element = driver.findElement(By.id(commonOperatorId + "eq"));
-		return element;
-	}
-
-	public String getResult() {
-		WebElement element = driver.findElement(By.id(commonOperatorId + "result"));
-		return element.getText();
+		tap(product, "Tapped on product", true);
+		return new ProductScreen(driver);
 	}
 
 }

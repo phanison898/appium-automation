@@ -6,6 +6,7 @@ import java.net.URL;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
@@ -17,6 +18,12 @@ import com.config.Config;
 public class BaseTest {
 
 	public static ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
+
+	@Parameters({ "env" })
+	@BeforeSuite
+	public void beforeSuite(@Optional("local") String env) {
+		Config.setEnv(env);
+	}
 
 	@Parameters({ "platform" })
 	@BeforeMethod

@@ -12,13 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.config.Config;
 
-/**
- * 
- * @author Phanison
- * @since 30/04/2024
- * @github_username phanison898
- * 
- **/
+import io.appium.java_client.AppiumBy;
 
 public class InteractionsUtil {
 
@@ -36,7 +30,6 @@ public class InteractionsUtil {
 	}
 
 	private WebElement wait(By locator) {
-
 		Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(Config.getExplicitWaitTime()));
 		return wait.until(ExpectedConditions.elementToBeClickable(locator));
 	}
@@ -70,27 +63,30 @@ public class InteractionsUtil {
 		return element;
 	}
 
-	public void click(By locator) {
+	public boolean isDisplayed(By locator) {
+		return getElement(locator).isDisplayed();
+	}
+
+	public void tap(By locator) {
 		getElement(locator).click();
 	}
 
-	public void click(By locator, String log) {
-//		getElement(locator).click();
-		jsUtil.click(getElement(locator));
+	public void tap(By locator, String log) {
+		getElement(locator).click();
 		logger.info(log);
 	}
 
-	public void click(By locator, String log, boolean needScreenshot) {
+	public void tap(By locator, String log, boolean needScreenshot) {
 		getElement(locator).click();
 		logger.info(log, needScreenshot);
 	}
 
-	public void click(By locator, String log, LogType type) {
+	public void tap(By locator, String log, LogType type) {
 		getElement(locator).click();
 		logger.matchLogType(type, log);
 	}
 
-	public void click(By locator, String log, LogType type, boolean needScreenshot) {
+	public void tap(By locator, String log, LogType type, boolean needScreenshot) {
 		getElement(locator).click();
 		logger.matchLogType(type, log, needScreenshot);
 	}
@@ -103,17 +99,15 @@ public class InteractionsUtil {
 
 	public void enter(By locator, String text, String log) {
 		WebElement element = getElement(locator);
-//		element.clear();
-//		element.sendKeys(text);
-		jsUtil.enter(element, text);
+		element.clear();
+		element.sendKeys(text);
 		logger.info(log);
 	}
 
 	public void enter(By locator, String text, String log, boolean needScreenshot) {
 		WebElement element = getElement(locator);
-//		element.clear();
-//		element.sendKeys(text);
-		jsUtil.enter(element, text);
+		element.clear();
+		element.sendKeys(text);
 		logger.info(log, needScreenshot);
 	}
 
@@ -137,6 +131,23 @@ public class InteractionsUtil {
 
 	public String getAttribute(By locator, String attribute) {
 		return getElement(locator).getAttribute(attribute);
+	}
+
+	public void pause(int millis) {
+		try {
+			Thread.sleep(millis);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void scrollToElement(String visibleText) {
+
+		String query = "new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().textContains(\""
+				+ visibleText + "\").instance(0))";
+
+		driver.findElement(AppiumBy.androidUIAutomator(query));
 	}
 
 }
