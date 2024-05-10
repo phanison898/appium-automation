@@ -25,9 +25,8 @@ public class AndroidDriverManager implements DriverManager {
 		if (Config.getEnv().equals("local")) {
 
 			caps.setCapability("appium:app", Paths.APP_PATH);
-			caps.setCapability("appium:deviceName", "test_device");
+			caps.setCapability("appium:deviceName", "emulator-5554");
 			caps.setCapability("appium:platformVersion", "9.0");
-			caps.setCapability("appium:udid", "emulator-5554");
 
 		} else if (Config.getEnv().equals("cloud")) {
 
@@ -46,6 +45,7 @@ public class AndroidDriverManager implements DriverManager {
 		}
 
 		driver = new AndroidDriver(url, caps);
+
 	}
 
 	@Override

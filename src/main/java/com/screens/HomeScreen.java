@@ -2,7 +2,6 @@ package com.screens;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import com.utils.InteractionsUtil;
 
@@ -24,7 +23,7 @@ public class HomeScreen extends InteractionsUtil {
 	public ProductScreen tapOnProduct() {
 
 		logger.info("Opened My Demo App", true);
-
+		
 		tap(product, "Tapped on product", true);
 		return new ProductScreen(driver);
 	}

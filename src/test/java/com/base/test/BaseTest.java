@@ -5,6 +5,7 @@ import java.net.URL;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
@@ -15,14 +16,38 @@ import com.base.DriverManager;
 import com.base.PlatformType;
 import com.config.Config;
 
+import io.appium.java_client.service.local.AppiumDriverLocalService;
+import io.appium.java_client.service.local.AppiumServiceBuilder;
+
 public class BaseTest {
 
 	public static ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
+
+	public static AppiumDriverLocalService service = null;
 
 	@Parameters({ "env" })
 	@BeforeSuite
 	public void beforeSuite(@Optional("local") String env) {
 		Config.setEnv(env);
+
+		if (Config.getEnv().equals("local")) {
+
+			AppiumServiceBuilder builder = new AppiumServiceBuilder();
+			builder.withIPAddress("127.0.0.1");
+			builder.usingPort(4723);
+
+			service = AppiumDriverLocalService.buildService(builder);
+
+			service.start();
+
+		}
+	}
+
+	@AfterSuite
+	public void afterSuite() {
+		if (service != null) {
+			service.stop();
+		}
 	}
 
 	@Parameters({ "platform" })
@@ -63,5 +88,4 @@ public class BaseTest {
 	public WebDriver getDriver() {
 		return driver.get();
 	}
-
 }

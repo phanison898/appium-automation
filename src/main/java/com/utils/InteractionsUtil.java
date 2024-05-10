@@ -22,19 +22,23 @@ public class InteractionsUtil {
 
 	public JSUtil jsUtil = null;
 
+	public Gestures gestures = null;
+
 	public InteractionsUtil(WebDriver driver) {
 
 		this.driver = driver;
 		logger = new LoggerUtil(driver);
 		jsUtil = new JSUtil(driver);
+		gestures = new AppGestures(driver);
 	}
 
 	private WebElement wait(By locator) {
+
 		Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(Config.getExplicitWaitTime()));
 		return wait.until(ExpectedConditions.elementToBeClickable(locator));
 	}
 
-	private WebElement getElement(By locator) {
+	public WebElement getElement(By locator) {
 
 		WebElement element = null;
 
@@ -68,26 +72,27 @@ public class InteractionsUtil {
 	}
 
 	public void tap(By locator) {
-		getElement(locator).click();
+//		getElement(locator).click();
+		gestures.click(getElement(locator));
 	}
 
 	public void tap(By locator, String log) {
-		getElement(locator).click();
+		tap(locator);
 		logger.info(log);
 	}
 
 	public void tap(By locator, String log, boolean needScreenshot) {
-		getElement(locator).click();
+		tap(locator);
 		logger.info(log, needScreenshot);
 	}
 
 	public void tap(By locator, String log, LogType type) {
-		getElement(locator).click();
+		tap(locator);
 		logger.matchLogType(type, log);
 	}
 
 	public void tap(By locator, String log, LogType type, boolean needScreenshot) {
-		getElement(locator).click();
+		tap(locator);
 		logger.matchLogType(type, log, needScreenshot);
 	}
 
@@ -137,7 +142,6 @@ public class InteractionsUtil {
 		try {
 			Thread.sleep(millis);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
