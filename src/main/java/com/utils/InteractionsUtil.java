@@ -72,8 +72,7 @@ public class InteractionsUtil {
 	}
 
 	public void tap(By locator) {
-//		getElement(locator).click();
-		gestures.click(getElement(locator));
+		getElement(locator).click();
 	}
 
 	public void tap(By locator, String log) {

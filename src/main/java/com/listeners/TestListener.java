@@ -4,8 +4,10 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import com.config.Paths;
 import com.reports.ExtentManager;
 import com.reports.ExtentTestManager;
+import com.utils.LoggerUtil;
 
 /**
  * 
@@ -47,6 +49,8 @@ public class TestListener implements ITestListener {
 	@Override
 	public void onFinish(ITestContext context) {
 		ExtentManager.flushExtentReport();
-	}
 
+		LoggerUtil.consoleLog("End", String.format("Check the generated test report : %s", Paths.EXTENT_REPORT_FILE));
+	}
+	
 }

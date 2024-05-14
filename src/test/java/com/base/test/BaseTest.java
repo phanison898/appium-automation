@@ -28,6 +28,9 @@ public class BaseTest {
 	@Parameters({ "env" })
 	@BeforeSuite
 	public void beforeSuite(@Optional("local") String env) {
+
+		env = System.getProperty("env") != null ? System.getProperty("env") : env;
+
 		Config.setEnv(env);
 
 		if (Config.getEnv().equals("local")) {

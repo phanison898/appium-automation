@@ -209,7 +209,7 @@ public class LoggerUtil {
 		}
 	}
 
-	private void consoleLog(String logType, String message) {
+	public static void consoleLog(String logType, String message) {
 
 		SimpleDateFormat format = new SimpleDateFormat("[hh:mm:ss]");
 		Date date = new Date();

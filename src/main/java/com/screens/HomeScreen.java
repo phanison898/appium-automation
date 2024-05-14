@@ -25,6 +25,7 @@ public class HomeScreen extends InteractionsUtil {
 		logger.info("Opened My Demo App", true);
 		
 		tap(product, "Tapped on product", true);
+		
 		return new ProductScreen(driver);
 	}
 
